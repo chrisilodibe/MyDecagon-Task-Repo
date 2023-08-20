@@ -1,0 +1,8 @@
+C:\Users\user\source\repos\WeekOneTask\WeekOneTask\bin\Debug\WeekOneTask.exe.config
+C:\Users\user\source\repos\WeekOneTask\WeekOneTask\bin\Debug\WeekOneTask.exe
+C:\Users\user\source\repos\WeekOneTask\WeekOneTask\bin\Debug\WeekOneTask.pdb
+C:\Users\user\source\repos\WeekOneTask\WeekOneTask\obj\Debug\WeekOneTask.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\WeekOneTask\WeekOneTask\obj\Debug\WeekOneTask.csproj.SuggestedBindingRedirects.cache
+C:\Users\user\source\repos\WeekOneTask\WeekOneTask\obj\Debug\WeekOneTask.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\WeekOneTask\WeekOneTask\obj\Debug\WeekOneTask.exe
+C:\Users\user\source\repos\WeekOneTask\WeekOneTask\obj\Debug\WeekOneTask.pdb
