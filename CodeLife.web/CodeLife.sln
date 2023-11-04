@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeLife.web", "CodeLife.web.csproj", "{611CABF6-F898-4B9B-AD61-CE2B32F83866}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{611CABF6-F898-4B9B-AD61-CE2B32F83866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{611CABF6-F898-4B9B-AD61-CE2B32F83866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{611CABF6-F898-4B9B-AD61-CE2B32F83866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{611CABF6-F898-4B9B-AD61-CE2B32F83866}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50D73D4B-97B5-4BC3-9B6E-9625ACE26B68}
+	EndGlobalSection
+EndGlobal
