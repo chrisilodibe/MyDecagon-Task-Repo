@@ -1,4 +1,5 @@
 using CodeLife.web.Data;
+using CodeLife.web.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace CodeLife.web
@@ -13,6 +14,8 @@ namespace CodeLife.web
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<CodeLifeDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+
+            builder.Services.AddScoped<ITagRepository,TagRepository>();
 
             var app = builder.Build();
 

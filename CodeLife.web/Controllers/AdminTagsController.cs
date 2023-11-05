@@ -1,6 +1,7 @@
 ﻿using CodeLife.web.Data;
 using CodeLife.web.Models.Domain;
 using CodeLife.web.Models.ViewModels;
+using CodeLife.web.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,10 +9,11 @@ namespace CodeLife.web.Controllers
 {
     public class AdminTagsController : Controller
     {
-        private readonly CodeLifeDbContext _context;
-        public AdminTagsController(CodeLifeDbContext codeLifeDbContext)
+        private readonly ITagRepository tagRepository;
+
+        public AdminTagsController(ITagRepository tagRepository)
         {
-                _context = codeLifeDbContext;
+            this.tagRepository = tagRepository;
         }
         [HttpGet]
         public IActionResult Add()
@@ -29,8 +31,7 @@ namespace CodeLife.web.Controllers
                 Name = addTagRequest.Name,
                 DisplayName = addTagRequest.DisplayName,
             };
-            await _context.Tags.AddAsync(tag);
-            await _context.SaveChangesAsync();
+            await tagRepository.AddAsync(tag);
             return RedirectToAction("List");
         }
 
@@ -38,14 +39,14 @@ namespace CodeLife.web.Controllers
         [ActionName("List")]
         public async Task<IActionResult> List()
         {
-            var tags = await _context.Tags.ToListAsync();
+            var tags = await tagRepository.GetAllAsync();
             return View(tags);
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var tag = await _context.Tags.FirstOrDefaultAsync(t => t.Id == id);
+            var tag = await tagRepository.GetAsync(id);
 
             if(tag != null)
             {
@@ -71,14 +72,15 @@ namespace CodeLife.web.Controllers
                 DisplayName = editTagRequest.DisplayName
             };
 
-            var existingTag= await _context.Tags.FindAsync(tag.Id);
-            if(existingTag != null)
+            var updatedTag = await tagRepository.UpdateAsync(tag);
+            if(updatedTag != null)
             {
-                existingTag.Name = tag.Name;
-                existingTag.DisplayName = tag.DisplayName;
-                await _context.SaveChangesAsync();
-                //return RedirectToAction("Edit", new { id = editTagRequest.Id });
-               return RedirectToAction("List");
+                //show a success notification
+                return RedirectToAction("List");
+            }
+            else
+            {
+                //show an error notification
             }
             return View("Edit", new {id=editTagRequest.Id});
         }
@@ -86,12 +88,15 @@ namespace CodeLife.web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(EditTagRequest editTagRequest)
         {
-            var tag = await _context.Tags.FindAsync(editTagRequest.Id);
-            if (tag != null)
+            var deletedTag = await tagRepository.DeleteAsync(editTagRequest.Id);
+            if(deletedTag != null)
             {
-                 _context.Tags.Remove(tag);
-                await _context.SaveChangesAsync();
+                //show success message 
                 return RedirectToAction("List");
+            }
+            else
+            {
+                //show error message
             }
             return RedirectToAction("Edit", new { id=editTagRequest.Id});
         }
