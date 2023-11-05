@@ -2,6 +2,7 @@
 using CodeLife.web.Models.Domain;
 using CodeLife.web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodeLife.web.Controllers
 {
@@ -19,23 +20,81 @@ namespace CodeLife.web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddTagRequest addTagRequest)
+        [ActionName("Add")]
+        public async Task<IActionResult> Add(AddTagRequest addTagRequest)
         {
+            //mapping AddTagRequest to the Tag domain model
             var tag = new Tag
             {
                 Name = addTagRequest.Name,
                 DisplayName = addTagRequest.DisplayName,
             };
-            _context.Tags.Add(tag);
-            _context.SaveChanges();
-            return View("Add");
+            await _context.Tags.AddAsync(tag);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("List");
         }
 
         [HttpGet]
-        public IActionResult List()
+        [ActionName("List")]
+        public async Task<IActionResult> List()
         {
-            var tags = _context.Tags.ToList();
+            var tags = await _context.Tags.ToListAsync();
             return View(tags);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var tag = await _context.Tags.FirstOrDefaultAsync(t => t.Id == id);
+
+            if(tag != null)
+            {
+                var editTagRequest = new EditTagRequest
+                {
+                    Id = tag.Id,
+                    Name = tag.Name,
+                    DisplayName = tag.DisplayName
+                };
+                return View(editTagRequest);
+
+            }
+            return View(null);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditTagRequest editTagRequest)
+        {
+            var tag = new Tag
+            {
+                Id = editTagRequest.Id,
+                Name = editTagRequest.Name,
+                DisplayName = editTagRequest.DisplayName
+            };
+
+            var existingTag= await _context.Tags.FindAsync(tag.Id);
+            if(existingTag != null)
+            {
+                existingTag.Name = tag.Name;
+                existingTag.DisplayName = tag.DisplayName;
+                await _context.SaveChangesAsync();
+                //return RedirectToAction("Edit", new { id = editTagRequest.Id });
+               return RedirectToAction("List");
+            }
+            return View("Edit", new {id=editTagRequest.Id});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(EditTagRequest editTagRequest)
+        {
+            var tag = await _context.Tags.FindAsync(editTagRequest.Id);
+            if (tag != null)
+            {
+                 _context.Tags.Remove(tag);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("List");
+            }
+            return RedirectToAction("Edit", new { id=editTagRequest.Id});
+        }
+
     }
 }
