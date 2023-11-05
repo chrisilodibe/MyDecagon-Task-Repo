@@ -1,3 +1,6 @@
+using CodeLife.web.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace CodeLife.web
 {
     public class Program
@@ -8,6 +11,8 @@ namespace CodeLife.web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<CodeLifeDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
             var app = builder.Build();
 
