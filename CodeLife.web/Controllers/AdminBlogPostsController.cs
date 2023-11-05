@@ -1,5 +1,5 @@
 ﻿using CodeLife.web.Models.ViewModels;
-using CodeLife.web.Repositories;
+using CodeLife.web.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 

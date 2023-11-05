@@ -1,5 +1,6 @@
 using CodeLife.web.Data;
-using CodeLife.web.Repositories;
+using CodeLife.web.Repositories.Implementations;
+using CodeLife.web.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CodeLife.web

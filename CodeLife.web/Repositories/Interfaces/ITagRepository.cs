@@ -1,6 +1,6 @@
 ﻿using CodeLife.web.Models.Domain;
 
-namespace CodeLife.web.Repositories
+namespace CodeLife.web.Repositories.Interfaces
 {
     public interface ITagRepository
     {
